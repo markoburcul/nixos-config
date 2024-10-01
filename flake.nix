@@ -12,15 +12,16 @@
       ...
     }:
     {
-      # Use this for all other targets
-      # nixos-anywhere --flake .#generic-nixos-facter --generate-hardware-config nixos-generate-config ./hardware-configuration.nix <hostname>
-      nixosConfigurations.generic = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          ./configuration.nix
-          ./hardware-configuration.nix
-        ];
+      nixosConfigurations = {
+        torvion = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/torvion/configuration.nix
+            ./hosts/torvion/hardware-configuration.nix
+            ./hosts/torvion/disk-config.nix
+          ];
+        };
       };
     };
 }

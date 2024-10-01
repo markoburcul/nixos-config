@@ -8,10 +8,9 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
-    ./disk-config.nix
-    ./roles/base.nix
-    ./roles/zsh.nix
-    ./roles/users.nix
+    ../../roles/base.nix
+    ../../roles/zsh.nix
+    ../../roles/users.nix
   ];
 
   boot.loader.grub = {
