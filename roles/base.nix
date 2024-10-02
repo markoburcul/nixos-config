@@ -47,6 +47,13 @@
     "vm.swappiness" = 100;
   };
 
+  # Eanble EarlyOOM
+  services.earlyoom = {
+    enable = true;
+    freeSwapThreshold = 20;
+    freeSwapKillThreshold = 10;
+  }
+
   # NTP Server
   services.chrony.enable = true;
 
