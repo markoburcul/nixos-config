@@ -9,10 +9,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     ../../roles/base.nix
+    ../../roles/security.nix
     ../../roles/zsh.nix
     ../../roles/users.nix
-    ../../roles/security.nix
-
   ];
 
   boot.loader.grub = {

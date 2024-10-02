@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, channels, ... }:
 
 {
   networking.nftables.enable = true;

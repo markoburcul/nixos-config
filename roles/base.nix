@@ -52,7 +52,7 @@
     enable = true;
     freeSwapThreshold = 20;
     freeSwapKillThreshold = 10;
-  }
+  };
 
   # NTP Server
   services.chrony.enable = true;

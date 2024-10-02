@@ -21,7 +21,7 @@
     isNormalUser = true;
     useDefaultShell = true;
     group = "markob";
-    hashedPasswordFile = secret "users/markob/pass-hash";
+    hashedPasswordFile = "users/markob/pass-hash";
     extraGroups = [
       "wheel" "audio" "disk" "adm" "tty"
       "systemd-journal" "docker" "networkmanager"

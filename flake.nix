@@ -18,6 +18,7 @@
       nixosConfigurations = {
         torvion = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs.channels = { inherit nixpkgs disko agenix; };
           modules = [
             disko.nixosModules.disko
             agenix.nixosModules.default
