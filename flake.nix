@@ -1,14 +1,17 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.disko.url = "github:nix-community/disko";
-  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
+  };
 
   outputs =
     {
+      self,
       nixpkgs,
       disko,
-      nixos-facter-modules,
+      agenix,
       ...
     }:
     {
@@ -17,6 +20,7 @@
           system = "x86_64-linux";
           modules = [
             disko.nixosModules.disko
+            agenix.nixosModules.default
             ./hosts/torvion/configuration.nix
             ./hosts/torvion/hardware-configuration.nix
             ./hosts/torvion/disk-config.nix
