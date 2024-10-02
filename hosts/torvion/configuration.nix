@@ -11,6 +11,8 @@
     ../../roles/base.nix
     ../../roles/zsh.nix
     ../../roles/users.nix
+    ../../roles/security.nix
+
   ];
 
   boot.loader.grub = {
