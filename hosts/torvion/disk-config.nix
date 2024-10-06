@@ -8,6 +8,7 @@
           type = "gpt";
           partitions = {
             BOOT = {
+              name = "boot";
               size = "1M";
               type = "EF02"; # for grub MBR
             };
@@ -15,15 +16,17 @@
               size = "500M";
               type = "EF00";
               content = {
-                type = "mdraid";
-                name = "boot";
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
               };
             };
-            mdadm = {
+            zfs = {
               size = "100%";
               content = {
-                type = "mdraid";
-                name = "raid1";
+                type = "zfs";
+                pool = "zroot";
               };
             };
           };
@@ -35,52 +38,48 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
-            };
-            ESP = {
-              size = "500M";
-              type = "EF00";
-              content = {
-                type = "mdraid";
-                name = "boot";
-              };
-            };
-            mdadm = {
+            zfs = {
               size = "100%";
               content = {
-                type = "mdraid";
-                name = "raid1";
+                type = "zfs";
+                pool = "zroot";
               };
             };
           };
         };
       };
     };
-    mdadm = {
-      boot = {
-        type = "mdadm";
-        level = 1;
-        metadata = "1.0";
-        content = {
-          type = "filesystem";
-          format = "vfat";
-          mountpoint = "/boot";
+    zpool = {
+      zroot = {
+        type = "zpool";
+        mode = "mirror";
+        # Workaround: cannot import 'zroot': I/O error in disko tests
+        options.cachefile = "none";
+        rootFsOptions = {
+          acltype = "posixacl";
+          dnodesize = "auto";
+          normalization="formD";
+          atime = "off";
+          xattr = "sa";
+          compression = "zstd";
+          mountpoint = "legacy";
+          "com.sun:auto-snapshot" = "false";
         };
-      };
-      raid1 = {
-        type = "mdadm";
-        level = 1;
-        content = {
-          type = "gpt";
-          partitions.primary = {
-            size = "100%";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/";
-            };
+        mountpoint = "/";
+        postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot@blank$' || zfs snapshot zroot@blank";
+
+        datasets = {
+          zfs_nix = {
+            type = "zfs_fs";
+            mountpoint = "/nix";
+          };
+          zfs_root_fs = {
+            type = "zfs_fs";
+            mountpoint = "/root";
+          };
+          zfs_home_fs = {
+            type = "zfs_fs";
+            mountpoint = "/home";
           };
         };
       };

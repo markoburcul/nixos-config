@@ -21,7 +21,12 @@
     efiInstallAsRemovable = true;
   };
 
-  networking.hostName = "torvion";
+  networking = {
+    hostName = "torvion";
+    # The primary use case is to ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine
+    hostId = "cc4068bf";
+    useDHCP = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Barcelona";
