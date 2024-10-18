@@ -21,7 +21,7 @@
     isNormalUser = true;
     useDefaultShell = true;
     group = "markob";
-    hashedPasswordFile = "users/markob/pass-hash";
+    hashedPasswordFile = config.age.secrets."users/markob/pass-hash".path;
     extraGroups = [
       "wheel" "audio" "disk" "adm" "tty"
       "systemd-journal" "docker" "networkmanager"
