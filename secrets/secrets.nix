@@ -9,4 +9,5 @@ let
 in
 {
   "users/markob/pass-hash.age" = { publicKeys = all; };
+  "services/geth/jwt-secret.age" = { publicKeys = [ markob torvion ]; };
 }
