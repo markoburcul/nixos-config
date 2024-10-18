@@ -22,6 +22,12 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
+            swap = {
+              size = "4G";
+              content = {
+                type = "swap";
+              };
+            };
             zfs = {
               size = "100%";
               content = {
@@ -80,6 +86,13 @@
           zfs_home_fs = {
             type = "zfs_fs";
             mountpoint = "/home";
+          };
+          zfs_persist_fs = {
+            type = "zfs_fs";
+            mountpoint = "/persist";
+            mountOptions = [
+              "noatime"
+            ];
           };
         };
       };

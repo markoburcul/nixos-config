@@ -31,15 +31,6 @@
     pass gopass openssl age age-plugin-yubikey
   ];
 
-
-  # Enable swapfile
-  swapDevices = [ 
-    {
-    device = "/var/lib/swapfile";
-    size = 4*1024;
-    } 
-  ];
-
   boot.kernel.sysctl = {
     # SysRQ is useful when things hang.
     "kernel.sysrq" = 1;
