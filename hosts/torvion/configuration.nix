@@ -10,6 +10,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ../../roles/base.nix
     ../../roles/security.nix
+    ../../roles/network.nix
     ../../roles/zsh.nix
     ../../roles/users.nix
   ];
