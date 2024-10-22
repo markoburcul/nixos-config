@@ -13,6 +13,8 @@
     ../../roles/network.nix
     ../../roles/zsh.nix
     ../../roles/users.nix
+    ../../roles/go-ethereum-holesky.nix
+    ../../roles/nimbus-eth2-holesky.nix
   ];
 
   boot.loader.grub = {

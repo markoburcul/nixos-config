@@ -8,6 +8,8 @@ let
   all = users ++ systems;
 in
 {
-  "users/markob/pass-hash.age" = { publicKeys = all; };
-  "services/geth/jwt-secret.age" = { publicKeys = [ markob torvion ]; };
+  "users/markob/pass-hash.age"        = { publicKeys = all; };
+  "services/geth/jwt-secret.age"      = { publicKeys = [ markob torvion ]; };
+  "services/nimbus/jwt-secret.age"    = { publicKeys = [ markob torvion ]; };
+  "services/nimbus/fee-recipient.age" = { publicKeys = [ markob torvion ]; };
 }
