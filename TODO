@@ -1,0 +1,9 @@
+# MUST
+- create monitoring/alerting stack
+- setup VPN
+
+# NICE TO HAVE
+- find out how to pass secret from a file to systemd service using https://systemd.io/CREDENTIALS/
+- claim domain for the server
+- setup landing page
+- try to refactor a role so it can be reused i.e. mutiple nodes running on a server
