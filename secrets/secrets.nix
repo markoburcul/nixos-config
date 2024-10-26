@@ -8,7 +8,12 @@ let
   all = users ++ systems;
 in
 {
-  "users/markob/pass-hash.age"        = { publicKeys = all; };
+  "users/markob/pass-hash.age"        = { publicKeys = all;                };
+  "services/landing/server.crt.age"   = { publicKeys = [ markob torvion ]; };
+  "services/landing/server.key.age"   = { publicKeys = [ markob torvion ]; };
+  "services/landing/ca.crt.age"       = { publicKeys = [ markob torvion ]; };
+  "services/landing/crl.pem.age"      = { publicKeys = [ markob torvion ]; };
+  "services/grafana/pass.age"         = { publicKeys = [ markob torvion ]; };
   "services/geth/jwt-secret.age"      = { publicKeys = [ markob torvion ]; };
   "services/nimbus/jwt-secret.age"    = { publicKeys = [ markob torvion ]; };
   "services/nimbus/fee-recipient.age" = { publicKeys = [ markob torvion ]; };

@@ -1,9 +1,12 @@
 # MUST
 - create monitoring/alerting stack
+  - almost done, I need to set up the nginx to expose it - DONE
+- setup nginx to use private certificates to access the website
+  - https://docs.nginx.com/nginx-management-suite/admin-guides/configuration/secure-traffic/ - DONE
 - setup VPN
 
 # NICE TO HAVE
 - find out how to pass secret from a file to systemd service using https://systemd.io/CREDENTIALS/
-- claim domain for the server
-- setup landing page
+- claim domain for the server - DONE
+- setup landing page - almost done
 - try to refactor a role so it can be reused i.e. mutiple nodes running on a server
