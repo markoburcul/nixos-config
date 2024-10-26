@@ -15,6 +15,8 @@
     ../../roles/users.nix
     ../../roles/go-ethereum-holesky.nix
     ../../roles/nimbus-eth2-holesky.nix
+    ../../roles/monitoring.nix
+    ../../roles/landing.nix
   ];
 
   boot.loader.grub = {
@@ -26,9 +28,10 @@
 
   networking = {
     hostName = "torvion";
+    domain   = "cybercraftsolutions.eu";
     # The primary use case is to ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine
-    hostId = "cc4068bf";
-    useDHCP = true;
+    hostId   = "cc4068bf";
+    useDHCP  = true;
   };
 
   # Set your time zone.

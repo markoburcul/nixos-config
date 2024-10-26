@@ -1,0 +1,73 @@
+{ lib, config, ... }:
+
+let
+  inherit (config) services;
+in {
+  options.grafana = {
+    adminPasswordFile = lib.mkOption {
+      default = "service/grafana/pass";
+    };
+  };
+
+  config = let
+    cfg = config.grafana;
+  in {
+    age.secrets = {
+      grafana-secret = {
+        file = ../secrets/services/grafana/pass.age;
+        path = "/persist/monitoring/grafana/pass";
+        owner = "grafana";
+      };
+    };
+    
+    services.grafana = {
+      enable = true;
+
+      settings = {
+        server = {
+          protocol = "http";
+          http_addr = "127.0.0.1";
+          http_port = 3000;
+          domain = config.networking.fqdn;
+          root_url = "%(protocol)s://%(domain)s:%(http_port)s/grafana/";
+        };
+        security = {
+          admin_user = "markob";
+          admin_password = "$__file{/persist/monitoring/grafana/pass}";
+          serve_from_sub_path = true;
+          allow_embedding = true;
+        };
+      };
+
+      dataDir = "/persist/monitoring/grafana";
+
+      provision = {
+        enable = true;
+        datasources.settings = {
+          datasources = lib.optionals (config.services.prometheus.enable) [{
+            name = "localhost";
+            type = "prometheus";
+            url = "http://localhost:${toString config.services.prometheus.port}/";
+            isDefault = true;
+            jsonData = { timeInterval = "10s"; };
+          }];
+        };
+      };
+    };
+
+    systemd.tmpfiles.rules = [
+      "d /persist/monitoring/grafana 770 grafana grafana"
+    ];
+
+
+    #services.landing = {
+    #  proxyServices = [{
+    #    name = "/grafana/";
+    #    title = "Grafana";
+    #    value = {
+    #      proxyPass = "http://localhost:${toString services.grafana.settings.server.http_port}/";
+    #    };
+    #  }];
+    #};
+  };
+}
