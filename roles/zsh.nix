@@ -25,6 +25,9 @@
 
   users.defaultUserShell = pkgs.zsh;
 
+  # Set system wide zprofile
+  environment.etc."zprofile.local".text = builtins.readFile "${toString ./../files/zprofile}";
+
   # Editor
   programs.neovim = {
     enable = true;

@@ -1,0 +1,257 @@
+# /etc/zsh/zprofile: system-wide .zprofile file for zsh(1).
+#
+# This file is sourced only for login shells (i.e. shells
+# invoked with "-" as the first character of argv[0], and
+# shells invoked with the -l flag.)
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
+
+# Enable color support of ls and also add handy aliases.
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# zfs mount -a -l fails without sudo with confusing error
+alias zfs='sudo zfs'
+
+
+# Completion
+autoload -U compinit              # enable auto completion
+compinit                          # longest wait
+
+# Aliases
+
+# g as simple shortcut for git status or just git if any other arguments are given
+function g {
+    if [[ $# > 0 ]]; then
+        git "$@"
+    elif [[ $# == 1 ]]; then
+        git show "$@"
+    else
+        git status -sb
+    fi
+}
+compdef g=git
+
+function d {
+    if [[ $1 == 'clean' ]]; then
+        docker rm $(docker ps -a -q)
+    elif [[ $1 == 'cleanimages' ]]; then
+        docker rmi $(docker images -f dangling=true -q)
+    elif [[ $# == 1 ]]; then
+        docker inspect "$@"
+    elif [[ $# > 0 ]]; then
+        docker "$@"
+    else
+        docker ps
+    fi
+}
+compdef d=docker
+
+function dc {
+    if [[ $1 == 're' ]] || [[ $1 == 'recreate' ]]; then
+        docker compose up --force-recreate -d
+    elif [[ $# > 0 ]]; then
+        docker compose "$@"
+    else
+        docker compose ps
+    fi
+}
+
+function s {
+    if [[ $# == 0 ]]; then
+        sudo systemctl list-units --type=service --state=running
+    elif [[ $# == 1 ]] && [[ $1 == "reload" ]]; then
+        sudo systemctl daemon-reload
+    elif [[ $# == 1 ]]; then
+        sudo systemctl status "$@"
+    else
+        sudo systemctl "$@"
+    fi
+}
+compdef s=systemctl
+
+function j {
+    if [[ $# == 0 ]]; then
+        sudo journalctl --no-hostname --lines=30 --follow
+    elif [[ $# == 1 ]]; then
+        sudo journalctl --no-hostname --lines=30 --follow --unit "$@"
+    else
+        sudo journalctl --no-hostname "$@"
+    fi
+}
+compdef j=journalctl
+
+function i {
+    if [[ $# == 0 ]]; then
+        sudo ip --brief addr
+    elif [[ $# == 1 ]]; then
+        sudo ip addr show  "$@"
+    else
+        sudo ip "$@"
+    fi
+}
+compdef i=ip
+
+function t {
+    if [[ $# == 0 ]]; then
+        sudo iptables -L -n
+    elif [[ $# == 1 ]]; then
+        sudo iptables -L "$@" -n --line-numbers
+    else
+        sudo iptables "$@"
+    fi
+}
+compdef t=iptables
+
+function C {
+    if [[ $# == 0 ]]; then
+        curl --max-time 5 -sSf "localhost:8500/v1/agent/services" \
+            | jq -r '.[] | [
+                .ID,
+                (.Address // "" | if . == "" then "localhost" else . end)+":"+(.Port|tostring),
+                (.Tags|join(","))
+            ] | @tsv' | column -t
+    elif [[ $# == 1 ]]; then
+        curl --max-time 5 -sSf "localhost:8500/v1/agent/service/${1}" | jq
+    else
+        consul "$@"
+    fi
+}
+
+function c {
+    if [[ $# == 0 ]]; then
+        # Show local services and their health
+        curl --max-time 5 -sSf localhost:8500/v1/health/node/$HOST \
+            | jq -r '.[] | select(.CheckID != "serfHealth")
+                         | [ .ServiceID, .CheckID, .Type, .Status ]
+                         | @tsv' \
+            | column -t
+    else
+        curl --max-time 5 --silent --show-error --fail-with-body "$@"
+    fi
+}
+compdef c=curl
+
+function n {
+    local nft_flags=('--terse' '--stateless' '--numeric-protocol')
+    if [[ $# == 0 ]]; then
+        sudo nft "${nft_flags[@]}" list ruleset
+    elif [[ $# == 1 ]]; then
+        sudo nft "${nft_flags[@]}" list chain filter "${1}"
+    else
+        sudo nft "${nft_flags[@]}" "$@"
+    fi
+}
+
+function N {
+    if [[ $# == 0 ]]; then
+        sudo netstat -4lpn
+    elif [[ $# == 1 ]] && [[ $1 =~ ?(-)+([0-9]) ]]; then
+        sudo netstat -4lpn | grep "$1"
+    else
+        sudo netstat "$@"
+    fi
+}
+compdef N=netstat
+
+function r {
+    if [[ $# == 0 ]]; then
+        sudo -iu restic restic -q snapshots --latest 1
+    elif [[ $1 == "timers" ]]; then
+        sudo systemctl -a list-timers '*backup*'
+    elif [[ $# == 1 ]]; then
+        sudo -iu restic restic -q "$@"
+    else
+        sudo -iu restic restic -q "$@"
+    fi
+}
+
+# reload zshrc
+function src() {
+    autoload -U zrecompile
+    [[ -f ~/.zshrc ]] && zrecompile -p ~/.zshrc
+    [[ -f ~/.zcompdump ]] && zrecompile -p ~/.zcompdump
+    [[ -f ~/.zcompdump ]] && zrecompile -p ~/.zcompdump
+    [[ -f ~/.zshrc.zwc.old ]] && rm -f ~/.zshrc.zwc.old
+    [[ -f ~/.zcompdump.zwc.old ]] && rm -f ~/.zcompdump.zwc.old
+    source ~/.zshrc
+}
+
+# FZF Searches
+
+# Systemd Auto Completion
+function fzf-systemctl () {
+    local services=$(
+        sudo systemctl list-units --type=service --plain | head -n-6
+    )
+    local selected=$(
+        echo "${services}" | fzf \
+            --ansi \
+            --query "$LBUFFER" \
+            --header-lines=1 \
+            --preview-window=bottom,22 \
+            --preview='sudo SYSTEMD_COLORS=1 systemctl status ${1}'
+    )
+    if [[ -n "${selected}" ]]; then
+        BUFFER="sudo systemctl --no-pager status ${selected%% *}"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+zle -N fzf-systemctl
+
+# Docker Auto Completion
+function fzf-docker () {
+    local containers=$(
+        docker ps --format \
+            'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}'
+    )
+    local selected=$(
+        echo "${containers}" | fzf \
+            --query "$LBUFFER" \
+            --header-lines=1 \
+            --preview-window='bottom:80%:follow' \
+            --preview='docker logs -f -n 200 ${1}' \
+            --bind='ctrl-i:change-preview(docker top ${1})'
+    )
+    if [ -n "${selected}" ]; then
+        BUFFER="docker logs -f -n 50  ${selected%% *}"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+zle -N fzf-docker
+
+# NFT Auto Completion
+function fzf-nftables () {
+    local chains=$(
+        sudo nft --json --terse --stateless --numeric-protocol list ruleset \
+            | jq '.nftables[].chain
+                  | select(.table != null)
+                  | [ .table, .name ]
+                  | @tsv' -r \
+            | column -t
+    )
+    local preview_cmd='sudo nft --terse --stateless list chain'
+    local selected=$(
+        echo "${chains}" | fzf \
+            --query "$LBUFFER" \
+            --header-lines=1 \
+            --preview-window='bottom:60%:follow' \
+            --preview="${preview_cmd} "'${1} ${2}'
+    )
+    if [ -n "${selected}" ]; then
+        BUFFER="${preview_cmd} ${selected}"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+zle -N fzf-nftables
