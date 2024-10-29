@@ -34,6 +34,12 @@ in {
           };
         };
 
+        history = mkOption {
+          type = types.str;
+          default = "prune";
+          description = "Retention strategy for historical data (archive/prune).";
+        };
+
         dataDir = mkOption {
           type = types.str;
           default = "";
@@ -194,6 +200,7 @@ in {
         ExecStart = ''
           ${cfg.package}/bin/nimbus_beacon_node \
             --network=${cfg.network} \
+            --history=${cfg.history} \
             --graffiti=${cfg.graffiti} \
             --data-dir=${cfg.dataDir} \
             --era-dir=${cfg.eraDir} \

@@ -51,6 +51,7 @@ in {
         enable = true; 
         address = "0.0.0.0"; 
       };
+      history = "prune";
       dataDir = "/persist/workshop/nimbus";
       threadsNumber = 0; /* 0 == auto */
       /* Higher resource usage for small increase in rewards. */
