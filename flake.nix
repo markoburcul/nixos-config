@@ -27,6 +27,15 @@
             ./hosts/torvion/disk-config.nix
           ];
         };
+        ghosteye = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs.channels = { inherit nixpkgs agenix; };
+          modules = [
+            agenix.nixosModules.default
+            ./hosts/ghosteye/configuration.nix
+            ./hosts/ghosteye/hardware-configuration.nix
+          ];
+        };
       };
     };
 }
