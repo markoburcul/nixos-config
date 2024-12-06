@@ -3,17 +3,18 @@ let
   users = [ markob ];
 
   torvion = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH87Xkji7818EWYseoHVKlpUGKdDs1iLiQ6Zks5G7a9K";
-  systems = [ torvion ];
+  ghosteye = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVS/OQe0b8ioVQQ7Dxa7m/EN6o48tuWXO3/xT14KvnY";
+  systems = [ torvion ghosteye ];
 
   all = users ++ systems;
 in
 {
   "users/markob/pass-hash.age"        = { publicKeys = all;                };
-  "services/landing/server.crt.age"   = { publicKeys = [ markob torvion ]; };
-  "services/landing/server.key.age"   = { publicKeys = [ markob torvion ]; };
-  "services/landing/ca.crt.age"       = { publicKeys = [ markob torvion ]; };
-  "services/landing/crl.pem.age"      = { publicKeys = [ markob torvion ]; };
-  "services/grafana/pass.age"         = { publicKeys = [ markob torvion ]; };
+  "services/landing/server.crt.age"   = { publicKeys = [ markob ghosteye ]; };
+  "services/landing/server.key.age"   = { publicKeys = [ markob ghosteye ]; };
+  "services/landing/ca.crt.age"       = { publicKeys = [ markob ghosteye ]; };
+  "services/landing/crl.pem.age"      = { publicKeys = [ markob ghosteye ]; };
+  "services/grafana/pass.age"         = { publicKeys = [ markob ghosteye ]; };
   "services/geth/jwt-secret.age"      = { publicKeys = [ markob torvion ]; };
   "services/nimbus/jwt-secret.age"    = { publicKeys = [ markob torvion ]; };
   "services/nimbus/fee-recipient.age" = { publicKeys = [ markob torvion ]; };
