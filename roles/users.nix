@@ -1,4 +1,4 @@
-{ pkgs, secret, config, ... }:
+{ pkgs, config, ... }:
 
 {
   # Give extra permissions with Nix

@@ -1,11 +1,10 @@
 # MUST
 - setup VPN - using tailscale should be easy to set up
   - create an exit node and set it up on your mac or phone
-- move the monitoring setup to a shared cpu cloud hetzner host and if possible set it up with nixos
-  - https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Cloud
 - add terraform code for machines
 - add rate limiting to nginx
 - describe the mtls setup and certificate generation for nginx in either README in root or per host
+- take a look at the eth2prod grafana dashboards and upgrade the geth dashboard 
 
 # NICE TO HAVE
 - find out how to pass secret from a file to systemd service using https://systemd.io/CREDENTIALS/
@@ -19,3 +18,5 @@
   - https://docs.nginx.com/nginx-management-suite/admin-guides/configuration/secure-traffic/
 - claim domain for the server
 - add loki for logs for monitoring setup
+- move the monitoring setup to a shared cpu cloud hetzner host and if possible set it up with nixos
+  - https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Cloud
