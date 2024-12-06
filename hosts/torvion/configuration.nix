@@ -1,4 +1,4 @@
-{
+args@{
   modulesPath,
   lib,
   pkgs,
@@ -15,8 +15,16 @@
     ../../roles/users.nix
     ../../roles/go-ethereum-holesky.nix
     ../../roles/nimbus-eth2-holesky.nix
-    ../../roles/monitoring.nix
-    ../../roles/landing.nix
+    ../../roles/netdata.nix
+    ../../roles/prometheus.nix
+    (
+      import ../../roles/promtail.nix (
+        args // { 
+          lokiHost = "49.13.212.18";
+          lokiPort = 3030;
+        }
+      )
+    )
   ];
 
   boot.loader.grub = {
@@ -33,6 +41,12 @@
     hostId   = "cc4068bf";
     useDHCP  = true;
   };
+
+  networking.firewall.extraInputRules = ''
+    ip saddr 49.13.212.18 tcp dport 9000 accept comment "Ghosteye Prometheus scrape Netdata"
+    ip saddr 49.13.212.18 tcp dport 9100 accept comment "Ghosteye Prometheus scrape Nimbus Beacon Node"
+    ip saddr 49.13.212.18 tcp dport 16060 accept comment "Ghosteye Prometheus scrape Geth Node"
+  '';
 
   # Set your time zone.
   time.timeZone = "Europe/Barcelona";

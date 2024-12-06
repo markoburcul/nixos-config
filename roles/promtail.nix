@@ -1,10 +1,13 @@
-{ config, ... }:
-
+{ 
+  config,
+  lokiHost ? "127.0.0.1",
+  lokiPort ? 3030,
+  ...
+}:
 let
-  lokiPort=3030;
-  lokiHost= "127.0.0.1";
-in{
-
+  inherit lokiHost lokiPort;
+in 
+{
   services.promtail = {
     enable = true;
     configuration = {

@@ -18,7 +18,7 @@ in {
     };
     "web" = {
       "default port" = listenPort;
-      "allow connections from" = "localhost 10.2.2.* 192.168.1.*";
+      "allow connections from" = "localhost 49.13.212.18";
     };
     "health" = { "enabled" = "no"; };
     "statsd" = { "enabled" = "no"; };
@@ -43,16 +43,4 @@ in {
       "/proc/net/stat/nf_conntrack" = "no";
     };
   };
-
-  #services.landing = {
-  #  proxyServices = [{
-  #    name = "/netdata/";
-  #    title = "Netdata";
-  #    value = {
-  #      proxyPass = "http://localhost:${
-  #          toString services.netdata.config.web."default port"
-  #        }/";
-  #    };
-  #  }];
-  #};
 }
