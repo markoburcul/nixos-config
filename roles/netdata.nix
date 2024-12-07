@@ -18,7 +18,7 @@ in {
     };
     "web" = {
       "default port" = listenPort;
-      "allow connections from" = "localhost 49.13.212.18";
+      "allow connections from" = "localhost *";
     };
     "health" = { "enabled" = "no"; };
     "statsd" = { "enabled" = "no"; };

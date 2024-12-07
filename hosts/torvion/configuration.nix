@@ -20,11 +20,12 @@ args@{
     (
       import ../../roles/promtail.nix (
         args // { 
-          lokiHost = "49.13.212.18";
+          lokiHost = "ghosteye.mesh";
           lokiPort = 3030;
         }
       )
     )
+    ../../roles/nebula.nix
   ];
 
   boot.loader.grub = {
@@ -41,12 +42,6 @@ args@{
     hostId   = "cc4068bf";
     useDHCP  = true;
   };
-
-  networking.firewall.extraInputRules = ''
-    ip saddr 49.13.212.18 tcp dport 9000 accept comment "Ghosteye Prometheus scrape Netdata"
-    ip saddr 49.13.212.18 tcp dport 9100 accept comment "Ghosteye Prometheus scrape Nimbus Beacon Node"
-    ip saddr 49.13.212.18 tcp dport 16060 accept comment "Ghosteye Prometheus scrape Geth Node"
-  '';
 
   # Set your time zone.
   time.timeZone = "Europe/Barcelona";

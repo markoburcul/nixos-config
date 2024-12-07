@@ -19,7 +19,7 @@ args@{
     (
       import ../../roles/promtail.nix (
         args // { 
-          lokiHost = "127.0.0.1";
+          lokiHost = "ghosteye.mesh";
           lokiPort = 3030;
         }
       )
@@ -28,6 +28,13 @@ args@{
       import ../../roles/loki.nix (
         args // { 
           lokiIngesters = [ "88.198.54.19" ]; 
+        }
+      )
+    )
+    (
+      import ../../roles/nebula.nix (
+        args // { 
+          isLighthouse = true; 
         }
       )
     )
@@ -49,9 +56,9 @@ args@{
     useDHCP  = true;
   };
 
-  networking.firewall.extraInputRules = ''
-    ip saddr 88.198.54.19 tcp dport 3030 accept comment "Torvion Promtail sending logs to Loki"
-  '';
+  #networking.firewall.extraInputRules = ''
+  #  ip saddr 88.198.54.19 tcp dport 3030 accept comment "Torvion Promtail sending logs to Loki"
+  #'';
 
   # Set your time zone.
   time.timeZone = "Europe/Barcelona";

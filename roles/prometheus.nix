@@ -6,8 +6,8 @@ let
   default = { netdata = 9000;};
 
   hosts = {
-    "localhost"    = default;
-    "88.198.54.19" = default // { nimbus = 9100; geth = 16060; };
+    "ghosteye.mesh" = default;
+    "torvion.mesh"  = default // { nimbus = 9100; geth = 16060; };
   };
 
   # helper for filtering hosts by available service port

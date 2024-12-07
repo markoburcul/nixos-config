@@ -2,6 +2,11 @@
 
 Configuration for Hetzner Auction host.
 
+Public IP: 88.198.54.19
+Nebula Private IP: 192.170.100.2
+Nebula Groups: nimbus, geth, ssh
+DNS: torvion.cybercraftsolutions.eu
+
 # Hardware
 
 * Gigabyte B360HD3PLM-CF
