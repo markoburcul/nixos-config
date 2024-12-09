@@ -145,7 +145,7 @@
             },
             "editorMode": "code",
             "exemplar": true,
-            "expr": "netdata_system_load_load_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_system_load_load_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -248,7 +248,7 @@
             },
             "editorMode": "code",
             "exemplar": true,
-            "expr": "netdata_system_cpu_percentage_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_system_cpu_percentage_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -349,7 +349,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_system_ram_MiB_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_system_ram_MiB_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "ram.{{dimension}}",
@@ -361,7 +361,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_system_swap_MiB_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_system_swap_MiB_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "swap.{{dimension}}",
@@ -374,7 +374,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_mem_swap_MiB_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_mem_swap_MiB_average{hostname=\"[[host:pipe]]\"}",
             "hide": false,
             "legendFormat": "swap.{{dimension}}",
             "range": true,
@@ -473,7 +473,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_system_processes_processes_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_system_processes_processes_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "# {{dimension}}",
@@ -573,7 +573,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_system_softirqs_softirqs_persec_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_system_softirqs_softirqs_persec_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "{{dimension}}",
@@ -672,7 +672,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_system_interrupts_interrupts_persec_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_system_interrupts_interrupts_persec_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -795,7 +795,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "sum by (dimension)(netdata_net_packets_packets_persec_average{instance=\"[[host:pipe]]\"})",
+            "expr": "sum by (dimension)(netdata_net_packets_packets_persec_average{hostname=\"[[host:pipe]]\"})",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "{{dimension}}",
@@ -894,7 +894,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "sum by (family)(netdata_net_net_kilobits_persec_average{instance=\"[[host:pipe]]\"})",
+            "expr": "sum by (family)(netdata_net_net_kilobits_persec_average{hostname=\"[[host:pipe]]\"})",
             "format": "time_series",
             "hide": true,
             "intervalFactor": 1,
@@ -908,7 +908,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_net_net_kilobits_persec_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_net_net_kilobits_persec_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -1008,7 +1008,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_ipv4_sockstat_tcp_sockets_sockets_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_ipv4_sockstat_tcp_sockets_sockets_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -1108,7 +1108,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_ip_tcpconnaborts_connections_persec_average{instance=\"[[host:pipe]]\"} * 60",
+            "expr": "netdata_ip_tcpconnaborts_connections_persec_average{hostname=\"[[host:pipe]]\"} * 60",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -1207,7 +1207,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "exemplar": true,
-            "expr": "sum by (family,dimension)(netdata_net_drops_drops_persec_average{instance=\"[[host:pipe]]\"})",
+            "expr": "sum by (family,dimension)(netdata_net_drops_drops_persec_average{hostname=\"[[host:pipe]]\"})",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -1307,7 +1307,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "exemplar": true,
-            "expr": "sum by (family,dimension)(netdata_net_errors_errors_persec_average{instance=\"[[host:pipe]]\"})",
+            "expr": "sum by (family,dimension)(netdata_net_errors_errors_persec_average{hostname=\"[[host:pipe]]\"})",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -1432,7 +1432,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_disk_await_milliseconds_operation_average{instance=\"[[host:pipe]]\"}",
+            "expr": "netdata_disk_await_milliseconds_operation_average{hostname=\"[[host:pipe]]\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -1530,7 +1530,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_disk_util___of_time_working_average{instance=\"[[host]]\"}",
+            "expr": "netdata_disk_util___of_time_working_average{hostname=\"[[host]]\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "{{family}}",
@@ -1631,7 +1631,7 @@
             },
             "editorMode": "code",
             "exemplar": true,
-            "expr": "netdata_disk_space_GiB_average{instance=\"[[host]]\", family=~\"/|/data|/mnt/.*\", dimension=\"avail\"}",
+            "expr": "netdata_disk_space_GiB_average{hostname=\"[[host]]\", family=~\"/|/data|/mnt/.*\", dimension=\"avail\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -1731,7 +1731,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_disk_io_KiB_persec_average{instance=\"[[host]]\"}",
+            "expr": "netdata_disk_io_KiB_persec_average{hostname=\"[[host]]\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -1833,7 +1833,7 @@
             },
             "editorMode": "code",
             "exemplar": true,
-            "expr": "sum by (user)(netdata_user_fds_open_fds_average{instance=~\"[[host]]\"})",
+            "expr": "sum by (user)(netdata_user_fds_open_fds_average{hostname=~\"[[host]]\"})",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -1933,7 +1933,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_disk_ops_operations_persec_average{instance=\"[[host]]\"}",
+            "expr": "netdata_disk_ops_operations_persec_average{hostname=\"[[host]]\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -2032,7 +2032,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_disk_io_KiB_persec_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_disk_io_KiB_persec_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "{{chart}}({{dimension}})",
@@ -2160,7 +2160,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_services_cpu_percentage_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_services_cpu_percentage_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -2175,7 +2175,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_systemd_service_cpu_utilization_percentage_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_systemd_service_cpu_utilization_percentage_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -2279,7 +2279,7 @@
               "type": "prometheus",
               "uid": "PBFA97CFB590B2093"
             },
-            "expr": "netdata_services_mem_usage_MiB_average{instance=\"$host\"}",
+            "expr": "netdata_services_mem_usage_MiB_average{hostname=\"$host\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -2292,7 +2292,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_systemd_service_memory_usage_MiB_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_systemd_service_memory_usage_MiB_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -2417,7 +2417,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_services_throttle_io_read_KiB_persec_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_services_throttle_io_read_KiB_persec_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -2431,7 +2431,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_systemd_service_disk_io_KiB_persec_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_systemd_service_disk_io_KiB_persec_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "hide": false,
             "interval": "",
@@ -2556,7 +2556,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_services_throttle_io_write_KiB_persec_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_services_throttle_io_write_KiB_persec_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 1,
@@ -2570,7 +2570,7 @@
               "uid": "PBFA97CFB590B2093"
             },
             "editorMode": "code",
-            "expr": "netdata_systemd_service_disk_io_KiB_persec_average{instance=~\"[[host]]\"}",
+            "expr": "netdata_systemd_service_disk_io_KiB_persec_average{hostname=~\"[[host]]\"}",
             "format": "time_series",
             "hide": false,
             "interval": "",
