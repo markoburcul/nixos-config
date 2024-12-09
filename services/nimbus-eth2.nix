@@ -127,6 +127,31 @@ in {
           '';
         };
 
+        payloadBuilder = mkOption {
+          type = types.bool;
+          default = false;
+          description = ''
+            Enable external payload builder [=false].
+          '';
+        };
+
+        payloadBuilderURL = mkOption {
+          type = types.str;
+          default = false;
+          description = ''
+            Payload builder URL.
+          '';
+        };
+
+        localBlockValueBoost = mkOption {
+          type = types.int;
+          default = 10;
+          description = ''
+            Increase execution layer block values for builder bid 
+            comparison by a percentage [=10].
+          '';
+        };
+
         listenPort = mkOption {
           type = types.int;
           default = 9000;
@@ -215,6 +240,7 @@ in {
             --metrics=${boolToString cfg.metrics.enable} ${optionalString cfg.metrics.enable ''--metrics-address=${cfg.metrics.address} --metrics-port=${toString cfg.metrics.port} ''}\
             ${if cfg.execURLs == [] then "--no-el \\" else concatMapStringsSep " \\\n" (url: "--el=${url}") cfg.execURLs} \
             ${optionalString (cfg.suggestedFeeRecipient != "") "--suggested-fee-recipient=${cfg.suggestedFeeRecipient}"} \
+            --payload-builder=${boolToString cfg.payloadBuilder} ${optionalString cfg.payloadBuilder ''--payload-builder-url=${cfg.payloadBuilderURL} --local-block-value-boost=${toString cfg.localBlockValueBoost} ''}\
             --subscribe-all-subnets=${boolToString cfg.subAllSubnets} \
             --doppelganger-detection=${boolToString cfg.doppelganger} ${optionalString (length cfg.extraArgs > 0) "\\"}
             ${escapeShellArgs cfg.extraArgs}

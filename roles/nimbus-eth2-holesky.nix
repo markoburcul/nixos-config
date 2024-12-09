@@ -67,8 +67,11 @@ in {
         else
         [];
       jwtSecret = "/persist/workshop/nimbus/jwt-secret";
+      payloadBuilder = true;
+      payloadBuilderURL = services.mev-boost.listenAddr;
+      localBlockValueBoost = 10;
       # TODO: enable loading variables from files using systemd
-      #suggestedFeeRecipient = "";
+      suggestedFeeRecipient = "0xE73a3602b99f1f913e72F8bdcBC235e206794Ac8";
     };
 
     systemd.tmpfiles.rules = [
