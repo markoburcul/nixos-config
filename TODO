@@ -4,6 +4,7 @@
 - describe the mtls setup and certificate generation for nginx in either README in root or per host
 - take a look at the eth2prod grafana dashboards and upgrade the geth dashboard 
 - add configuration for your laptop
+- add application dashboard to landing role and refactor it even more(Dashy)
 
 # NICE TO HAVE
 - find out how to pass secret from a file to systemd service using https://systemd.io/CREDENTIALS/

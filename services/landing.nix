@@ -4,8 +4,6 @@ let
   inherit (config) services;
   inherit (lib) types mkEnableOption mkOption mkIf listToAttrs;
 
-  htpasswd = secret "service/landing/htpasswd";
-
   cfg = config.services.landing;
 
   landingPage = pkgs.callPackage ../templates/landing.index.nix {
@@ -67,52 +65,40 @@ in {
     services.nginx = {
       enable = true;
       enableReload = true;
-      config = ''
-      events {
-          use epoll;
-          worker_connections 4096;
-      }
-      http {
-        server {
-            listen 80;
-            server_name ${config.networking.fqdn};
-
-            location / {
-                return 301 https://$host$request_uri;
-            }
-        }
-
-        server {
-            listen 443 ssl;
-            server_name ${config.networking.fqdn};
-
-            ssl_certificate     ${cfg.serverTLSCertificate};
-            ssl_certificate_key ${cfg.serverTLSKey};
-            
-            # Path to Certificate Authority (CA) file
-            ssl_client_certificate ${cfg.CACertificate};
-            
-            # Path to Certificate Revocation List (CRL) file
-            ssl_crl ${cfg.CRL};
-
-            ssl_verify_client on;
-
-            access_log /var/log/nginx/mtls.access.log;
-            error_log /var/log/nginx/mtls.error.log;
-
-            location /grafana/ {
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto $scheme;
-              proxy_pass http://localhost:3000/;
-            }
-            location /prometheus/ {
-              proxy_pass http://localhost:9090/;
-            }
-        }
-      }
+      eventsConfig = ''
+        use epoll;
+        worker_connections 4096;
       '';
+      virtualHosts."${config.networking.fqdn}" = {
+        forceSSL = true;
+        sslCertificateKey = "${cfg.serverTLSKey}";
+        sslCertificate = "${cfg.serverTLSCertificate}";
+        extraConfig = ''
+          # Path to Certificate Authority (CA) file
+          ssl_client_certificate ${cfg.CACertificate};
+          
+          # Path to Certificate Revocation List (CRL) file
+          ssl_crl ${cfg.CRL};
+           
+          ssl_verify_client on;
+
+          access_log /var/log/nginx/mtls.access.log;
+          error_log /var/log/nginx/mtls.error.log;
+        '';
+        locations."/grafana/" = {
+          proxyPass = "http://localhost:3000/";
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+          '';
+        };
+        
+        locations."/prometheus/" = {
+          proxyPass = "http://localhost:9090/";
+        };
+      };
     };
 
     /* Firewall */
