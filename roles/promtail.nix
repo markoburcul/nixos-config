@@ -1,40 +1,52 @@
-{ 
-  config,
-  lokiHost ? "127.0.0.1",
-  lokiPort ? 3030,
-  ...
-}:
+{ config, lib, pkgs, ... }:
+with lib;
+
 let
-  inherit lokiHost lokiPort;
-in 
+  cfg = config.services.promtail;
+in
 {
-  services.promtail = {
-    enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 9080;
-        grpc_listen_port = 0;
+  options = {
+    services.promtail = {
+      lokiHost = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+        description = "The hostname of the Loki server";
       };
-      positions = {
-        filename = "/tmp/positions.yaml";
+      lokiPort = mkOption {
+        type = types.int;
+        default = 3030;
+        description = "The port of the Loki server";
       };
-      clients = [{
-        url = "http://${lokiHost}:${toString lokiPort}/loki/api/v1/push";
-      }];
-      scrape_configs = [{
-        job_name = "journal";
-        journal = {
-          max_age = "12h";
-          labels = {
-            job = "systemd-journal";
-            host = "pihole";
-          };
+    };
+  };
+  config = mkIf cfg.enable {
+    services.promtail = {
+      configuration = {
+        server = {
+          http_listen_port = 9080;
+          grpc_listen_port = 0;
         };
-        relabel_configs = [{
-          source_labels = [ "__journal__systemd_unit" ];
-          target_label = "unit";
+        positions = {
+          filename = "/tmp/positions.yaml";
+        };
+        clients = [{
+          url = "http://${cfg.lokiHost}:${toString cfg.lokiPort}/loki/api/v1/push";
         }];
-      }];
+        scrape_configs = [{
+          job_name = "journal";
+          journal = {
+            max_age = "12h";
+            labels = {
+              job = "systemd-journal";
+              host = "${config.networking.hostName}.mesh";
+            };
+          };
+          relabel_configs = [{
+            source_labels = [ "__journal__systemd_unit" ];
+            target_label = "unit";
+          }];
+        }];
+      };
     };
   };
 }

@@ -16,30 +16,17 @@ args@{
     ../../roles/netdata.nix
     ../../roles/prometheus.nix
     ../../roles/grafana.nix
-    (
-      import ../../roles/promtail.nix (
-        args // { 
-          lokiHost = "ghosteye.mesh";
-          lokiPort = 3030;
-        }
-      )
-    )
-    (
-      import ../../roles/loki.nix (
-        args // { 
-          lokiIngesters = [ "88.198.54.19" ]; 
-        }
-      )
-    )
-    (
-      import ../../roles/nebula.nix (
-        args // { 
-          isLighthouse = true; 
-        }
-      )
-    )
+    ../../roles/promtail.nix
+    ../../roles/loki.nix
+    ../../roles/nebula.nix
     ../../roles/landing.nix
   ];
+
+  services.promtail = {
+    enable = true;                  
+    lokiHost = "localhost";
+    lokiPort = 3030;
+  };
 
   # Necessary for Hetzner Cloud
   boot.loader.grub = {
@@ -55,10 +42,6 @@ args@{
     hostId   = "dc21a8bf";
     useDHCP  = true;
   };
-
-  #networking.firewall.extraInputRules = ''
-  #  ip saddr 88.198.54.19 tcp dport 3030 accept comment "Torvion Promtail sending logs to Loki"
-  #'';
 
   # Set your time zone.
   time.timeZone = "Europe/Barcelona";

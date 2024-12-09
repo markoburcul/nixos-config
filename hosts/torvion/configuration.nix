@@ -15,18 +15,18 @@ args@{
     ../../roles/users.nix
     ../../roles/go-ethereum-holesky.nix
     ../../roles/nimbus-eth2-holesky.nix
+    ../../roles/mev-boost.nix
     ../../roles/netdata.nix
     ../../roles/prometheus.nix
-    (
-      import ../../roles/promtail.nix (
-        args // { 
-          lokiHost = "ghosteye.mesh";
-          lokiPort = 3030;
-        }
-      )
-    )
+    ../../roles/promtail.nix
     ../../roles/nebula.nix
   ];
+
+  services.promtail = {
+    enable = true;                  
+    lokiHost = "ghosteye.mesh";
+    lokiPort = 3030;
+  };
 
   boot.loader.grub = {
     # no need to set devices, disko will add all devices that have a EF02 partition to the list already

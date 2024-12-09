@@ -3,15 +3,14 @@
 - add rate limiting to nginx
 - describe the mtls setup and certificate generation for nginx in either README in root or per host
 - take a look at the eth2prod grafana dashboards and upgrade the geth dashboard 
+- add configuration for your laptop
 
 # NICE TO HAVE
 - find out how to pass secret from a file to systemd service using https://systemd.io/CREDENTIALS/
-- setup landing page - almost done
 - try to refactor a role so it can be reused i.e. mutiple nodes running on a server
 
 # DONE
 - create monitoring/alerting stack
-  - almost done, I need to set up the nginx to expose it
 - setup nginx to use private certificates to access the website
   - https://docs.nginx.com/nginx-management-suite/admin-guides/configuration/secure-traffic/
 - claim domain for the server
@@ -19,3 +18,8 @@
 - move the monitoring setup to a shared cpu cloud hetzner host and if possible set it up with nixos
   - https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Cloud
 - created VPN using Nebula from Slack
+- add mev-boost service
+  - list of relays https://enchanted-direction-844.notion.site/6d369eb33f664487800b0dedfe32171e?v=985cb7e521de43d78c67b7ad29adec84
+  - keys are generated
+  - there is already a mev-boost pkg so you need to construct a service
+  - I already added flags to nimbus beacon node related to the mev-boost
