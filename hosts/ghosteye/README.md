@@ -9,7 +9,9 @@ DNS: ghosteye.cybercraftsolutions.eu
 
 # Hardware
 
-# TODO
+- 2vCPU
+- 4GB RAM
+- 50 GB SSD
 
 # Installation
 

@@ -16,4 +16,8 @@ DNS: torvion.cybercraftsolutions.eu
 
 # Installation
 
-## TODO
+- since this is a bare metal server, you need to enter rescue mode in Hetzner Robot
+- after that run nixos-anywhere command:
+```bash
+nix run github:nix-community/nixos-anywhere -- --flake .#torvion root@88.198.54.19
+```
