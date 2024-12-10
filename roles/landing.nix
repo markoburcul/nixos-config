@@ -1,8 +1,8 @@
-{ ... }:
+{ pkgs, config, channels, ... }:
 
 {
   imports = [
-    ../services/landing.nix
+    "${channels.nixpkgsNew}/nixos/modules/services/web-apps/dashy.nix"
   ];
 
   systemd.tmpfiles.rules = [
@@ -33,11 +33,53 @@
     };
   };
 
-  services.landing = {
+  services.dashy = {
     enable = true;
-    serverTLSCertificate = "/etc/nginx/ssl/server.crt";
-    serverTLSKey         = "/etc/nginx/ssl/server.key";
-    CACertificate        = "/etc/nginx/pki/ca.crt";
-    CRL                  = "/etc/nginx/pki/crl.pem";
+    settings = builtins.readFile "${toString ./../files/dashy/settings.yaml}";
+    virtualHost = { 
+      enableNginx = true;
+      domain = "${config.networking.fqdn}";
+    };
   };
+
+  services.nginx = {
+    enable = true;
+    enableReload = true;
+    eventsConfig = ''
+      use epoll;
+      worker_connections 4096;
+    '';
+    virtualHosts."${config.networking.fqdn}" = {
+      forceSSL = true;
+      sslCertificateKey = "/etc/nginx/ssl/server.key";
+      sslCertificate = "/etc/nginx/ssl/server.crt";
+      extraConfig = ''
+        # Path to Certificate Authority (CA) file
+        ssl_client_certificate /etc/nginx/pki/ca.crt;
+        
+        # Path to Certificate Revocation List (CRL) file
+        ssl_crl /etc/nginx/pki/crl.pem;
+          
+        ssl_verify_client on;
+
+        access_log /var/log/nginx/mtls.access.log;
+        error_log /var/log/nginx/mtls.error.log;
+      '';
+      locations."/grafana/" = {
+        proxyPass = "http://localhost:3000/";
+        extraConfig = ''
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
+      
+      locations."/prometheus/" = {
+        proxyPass = "http://localhost:9090/";
+      };
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

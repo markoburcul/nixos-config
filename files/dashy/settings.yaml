@@ -1,0 +1,36 @@
+pageInfo:
+  title: Ghosteye
+  description: Welcome to my private infra overview!
+  navLinks:
+    - title: GitHub
+      path: https://github.com/markoburcul/nixos-config
+appConfig:
+  theme: tiger
+  layout: auto
+  iconSize: large
+sections:
+  - name: System Monitoring
+    displayData:
+      sortBy: most-used
+      rows: 2
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - &ref_0
+        title: Grafana
+        description: Grafana instance for personal infra
+        icon: hl-grafana
+        url: https://ghosteye.cybercraftsolutions.eu/grafana/
+        target: newtab
+        id: 0_1062_grafana
+      - &ref_1
+        title: Prometheus
+        description: Prometheus instance for personal infra
+        icon: hl-prometheus
+        url: https://ghosteye.cybercraftsolutions.eu/prometheus/
+        target: newtab
+        id: 1_1062_prometheus
+    filteredItems:
+      - *ref_0
+      - *ref_1
