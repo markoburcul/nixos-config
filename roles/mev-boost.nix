@@ -20,7 +20,7 @@ in
 
   services.mev-boost = {
     enable = true;
-    listenAddr = "localhost:18550";
+    listenAddr = "0.0.0.0:18550";
     holesky = true;
     loglevel = "info";
     minBid = 0.05;

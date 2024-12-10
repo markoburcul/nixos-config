@@ -17,7 +17,6 @@ args@{
     ../../roles/nimbus-eth2-holesky.nix
     ../../roles/mev-boost.nix
     ../../roles/netdata.nix
-    ../../roles/prometheus.nix
     ../../roles/promtail.nix
     ../../roles/nebula.nix
   ];
