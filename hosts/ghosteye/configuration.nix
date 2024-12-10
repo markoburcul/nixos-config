@@ -18,6 +18,7 @@ args@{
     ../../roles/grafana.nix
     ../../roles/promtail.nix
     ../../roles/loki.nix
+    ../../roles/kuma.nix
     ../../roles/nebula.nix
     ../../roles/landing.nix
   ];

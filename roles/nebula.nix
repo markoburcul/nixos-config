@@ -22,11 +22,6 @@ let
     }) (builtins.attrNames (filterAttrs (_: v: v.isLighthouse) servers))
   );
 
-  allowedRules = lib.concatStringsSep "\n" (map (serverName: ''
-      ip saddr ${servers.${serverName}.publicIP} udp dport 4242 accept comment "Open Nebula for ${serverName}"
-    '') (lib.filter (serverName: serverName != config.networking.hostName) (builtins.attrNames servers)));
-
-
   networkingHosts = builtins.listToAttrs (map (serverName: {
     name = servers.${serverName}.privateIP;
     value = [ "${serverName}.mesh" ];
@@ -66,8 +61,6 @@ in
   networking.firewall = {
     trustedInterfaces = [ "nebula.mesh" ];
   };
-
-  networking.firewall.extraInputRules = allowedRules;
 
   networking.hosts = networkingHosts;
 
@@ -120,6 +113,12 @@ in
         }
         {
           host = "any";
+          port = 9080;
+          proto = "tcp";
+          group = "monitoring";
+        }
+        {
+          host = "any";
           port = 9100;
           proto = "tcp";
           group = "monitoring";
@@ -127,6 +126,12 @@ in
         {
           host = "any";
           port = 16060;
+          proto = "tcp";
+          group = "monitoring";
+        }
+        {
+          host = "any";
+          port = 18550;
           proto = "tcp";
           group = "monitoring";
         }

@@ -21,16 +21,24 @@ sections:
         title: Grafana
         description: Grafana instance for personal infra
         icon: hl-grafana
-        url: https://ghosteye.cybercraftsolutions.eu/grafana/
+        url: https://grafana.cybercraftsolutions.eu/
         target: newtab
-        id: 0_1062_grafana
+        id: 0_1739_grafana
       - &ref_1
         title: Prometheus
         description: Prometheus instance for personal infra
         icon: hl-prometheus
-        url: https://ghosteye.cybercraftsolutions.eu/prometheus/
+        url: https://prometheus.cybercraftsolutions.eu/
         target: newtab
-        id: 1_1062_prometheus
+        id: 1_1739_prometheus
+      - &ref_2
+        title: Uptime Kuma
+        description: Service for healthchecks
+        icon: https://uptime.kuma.pet/img/icon.svg
+        url: https://kuma.cybercraftsolutions.eu/
+        target: newtab
+        id: 2_1739_uptimekuma
     filteredItems:
       - *ref_0
       - *ref_1
+      - *ref_2

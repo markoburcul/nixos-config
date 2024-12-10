@@ -32,7 +32,7 @@ in {
           http_addr = "127.0.0.1";
           http_port = 3000;
           domain = config.networking.fqdn;
-          root_url = "%(protocol)s://%(domain)s:%(http_port)s/grafana/";
+          root_url = "%(protocol)s://%(domain)s:%(http_port)s/";
         };
         security = {
           admin_user = "markob";
