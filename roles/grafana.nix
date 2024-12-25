@@ -4,16 +4,36 @@
   ... 
 }:
 let
-  inherit (config) services additionalDatasources;
+  inherit (config) services;
 in {
   options.grafana = {
     adminPasswordFile = lib.mkOption {
       default = "service/grafana/pass";
     };
   };
-
   config = let
     cfg = config.grafana;
+    enabledDatasources = lib.filterAttrs (name: value: value.enable) {
+      prometheus = {
+        enable = config.services.prometheus.enable or false;
+        datasource = {
+          name = "Prometheus";
+          type = "prometheus";
+          url = "http://localhost:${toString config.services.prometheus.port}/";
+          isDefault = true;
+          jsonData = { timeInterval = "10s"; };
+        };
+      };
+      loki = {
+        enable = config.services.loki.enable or false;
+        datasource = {
+          name = "Loki";
+          type = "loki";
+          url = "http://localhost:3030/";
+          jsonData = { timeInterval = "10s"; };
+        };
+      };
+    };
   in {
     age.secrets = {
       grafana-secret = {
@@ -47,21 +67,7 @@ in {
       provision = {
         enable = true;
         datasources.settings = {
-          datasources = [
-            {
-              name = "Prometheus";
-              type = "prometheus";
-              url = "http://localhost:9090/";
-              isDefault = true;
-              jsonData = { timeInterval = "10s"; };
-            }
-            {
-              name = "Loki";
-              type = "loki";
-              url = "http://localhost:3030/";
-              jsonData = { timeInterval = "10s"; };
-            }
-          ];
+          datasources = lib.attrValues (lib.mapAttrs (_: v: v.datasource) enabledDatasources);
         };
       };
     };
