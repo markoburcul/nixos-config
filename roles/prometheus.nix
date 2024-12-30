@@ -7,6 +7,7 @@ let
 
   hosts = {
     "ghosteye.mesh" = default;
+    "luminal.mesh"  = default;
     "torvion.mesh"  = default // { nimbus = 9100; geth = 16060; };
   };
 

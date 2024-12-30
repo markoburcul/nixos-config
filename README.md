@@ -18,3 +18,13 @@ All of the configuration for the host should be edited in the repository and whe
 ```bash
 nixos-rebuild switch --flake .#name-of-the-host --target-host "root@12.34.56.78"
 ```
+
+## VPN
+
+The VPN is created using [Nebula](https://nebula.defined.net/docs/). 
+To add a new host to existing network it is necessary to first create the certificte and key for it using `nebula-cert`.
+The command should be executed in the directory that is not tracked by git `./certificates/nebula` and the password for CA file is in BitWarden.
+```bash
+ nebula-cert sign -name "newhost" -ip "192.170.100.10/24" -groups "mygroup,ssh" 
+```
+The groups are useful when defining the firewall rules in the nebula role.

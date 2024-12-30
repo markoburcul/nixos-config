@@ -9,8 +9,9 @@ let
   user = "nebula-mesh";
 
   servers = {
-    "ghosteye" = { isLighthouse = true;  publicIP = "49.13.212.18"; privateIP = "192.170.100.1"; };
-    "torvion"  = { isLighthouse = false; publicIP = "88.198.54.19"; privateIP = "192.170.100.2"; };
+    "ghosteye" = { isLighthouse = true;  publicIP = "49.13.212.18";  privateIP = "192.170.100.1"; };
+    "torvion"  = { isLighthouse = false; publicIP = "88.198.54.19";  privateIP = "192.170.100.2"; };
+    "luminal"  = { isLighthouse = false; publicIP = "94.130.49.102"; privateIP = "192.170.100.4"; };
   };
 
   isLighthouse = servers.${config.networking.hostName}.isLighthouse;

@@ -1,7 +1,6 @@
 # MUST
 - add terraform code for machines
 - describe the mtls setup and certificate generation for nginx in either README in root or per host
-- take a look at the eth2prod grafana dashboards and upgrade the geth dashboard 
 - add configuration for your laptop
 - create alerting for services:
   - alertmanager
@@ -9,6 +8,9 @@
     - https://github.com/pSub/configs/blob/master/nixos%2Fserver%2Fmodules%2Fsystemd-email-notify.nix
     - not for all of the services but just for critical
 - automate landing page nginx config generation based on the exposed services on server
+- scrape Beaconcha API and add that data to grafana and visualize it
+  - here is an example with Telegram https://gist.github.com/richard-ramos/5ae07f56cd5d4e1441e872bf0a60c9b4
+- buy more validators on holesky
 
 # NICE TO HAVE
 - find out how to pass secret from a file to systemd service using https://systemd.io/CREDENTIALS/
@@ -30,3 +32,4 @@
   - I already added flags to nimbus beacon node related to the mev-boost
 - add application dashboard to landing role and refactor it even more(Dashy)
 - add rate limiting to nginx
+- take a look at the eth2prod grafana dashboards and upgrade the geth dashboard 
