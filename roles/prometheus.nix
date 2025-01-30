@@ -7,7 +7,7 @@ let
 
   hosts = {
     "ghosteye.mesh" = default;
-    "luminal.mesh"  = default;
+    #"luminal.mesh"  = default // { near = 3030; near-exporter = 8080; };
     "torvion.mesh"  = default // { nimbus = 9100; geth = 16060; };
   };
 
@@ -52,9 +52,11 @@ in {
     };
 
     scrapeConfigs = [
-      (genScrapeJob {name = "netdata";  path = "/api/v1/allmetrics";})
-      (genScrapeJob {name = "nimbus";   path = "/metrics"; })
-      (genScrapeJob {name = "geth";     path = "/debug/metrics/prometheus"; })
+      (genScrapeJob {name = "netdata";       path = "/api/v1/allmetrics";})
+      (genScrapeJob {name = "nimbus";        path = "/metrics"; })
+      (genScrapeJob {name = "near";          path = "/metrics"; })
+      (genScrapeJob {name = "near-exporter"; path = "/metrics"; })
+      (genScrapeJob {name = "geth";          path = "/debug/metrics/prometheus"; })
     ];
 
     #ruleFiles = [

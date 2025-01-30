@@ -45,17 +45,17 @@
             ./hosts/ghosteye/hardware-configuration.nix
           ];
         };
-        luminal = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs.channels = { inherit nixpkgs disko agenix; };
-          modules = [
-            disko.nixosModules.disko
-            agenix.nixosModules.default
-            ./hosts/luminal/configuration.nix
-            ./hosts/luminal/hardware-configuration.nix
-            ./hosts/torvion/disk-config.nix
-          ];
-        };
+        #luminal = nixpkgs.lib.nixosSystem {
+        #  system = "x86_64-linux";
+        #  specialArgs.channels = { inherit nixpkgs disko agenix; };
+        #  modules = [
+        #    disko.nixosModules.disko
+        #    agenix.nixosModules.default
+        #    ./hosts/luminal/configuration.nix
+        #    ./hosts/luminal/hardware-configuration.nix
+        #    ./hosts/torvion/disk-config.nix
+        #  ];
+        #};
       };
     };
 }

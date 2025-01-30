@@ -16,6 +16,7 @@ args@{
     ../../roles/netdata.nix
     ../../roles/promtail.nix
     ../../roles/nebula.nix
+    ../../roles/docker.nix
   ];
 
   services.promtail = {
@@ -38,6 +39,10 @@ args@{
     hostId   = "49cc7e42";
     useDHCP  = true;
   };
+
+  # This is temporary for near container
+  networking.firewall.allowedTCPPorts = [ 24567 ];
+  networking.firewall.allowedUDPPorts = [ 24567 ];
 
   # Set your time zone.
   time.timeZone = "Europe/Barcelona";
