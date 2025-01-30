@@ -28,3 +28,7 @@ The command should be executed in the directory that is not tracked by git `./ce
  nebula-cert sign -name "newhost" -ip "192.170.100.10/24" -groups "mygroup,ssh" 
 ```
 The groups are useful when defining the firewall rules in the nebula role.
+
+
+### Hetzner auction
+https://radar.iodev.org/analyze?filter=N4IgbgpgTgzglgewHYgFwEYA0IoQMYRIAuANgJ4DKEhaRUArhNiQngIZGJIDi0AtmyRlaDJiBbtOyAGJwkJQQBMRjbHgAO9AMIJ6xNFhAb6ASWIQSKscYCCAWQAiV7FDZ8zRaEjYkKcAF4QaADaACyYAGwAutgwMIoAcmB8EDp6RCEADJgAzDEgcYnJEB5ePn6BIeHoAEz5hRQcbGn6qMHZ6PXxjURspVDevgFBbVih+QAWiootGW3ZmZPT-YMVI2GY6NGxFvieig5NBOawIfW7ePtamnYIihYwZ9gQAB50bDAAolpaaEj0JBIzzerhgJgSJl+qH+gOB7xgAAkAOoAJTQADMfDAxK94dwAAoAVQxWJxII+KPxFBJJGxAF8gA
