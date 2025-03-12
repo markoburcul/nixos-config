@@ -61,7 +61,7 @@
           vhosts = ["localhost" "127.0.0.1"];
           jwtsecret = "/persist/workshop/geth/jwt-secret";
         };
-        bootnodes = [ "enode://ac906289e4b7f12df423d654c5a962b6ebe5b3a74cc9e06292a85221f9a64a6f1cfdd6b714ed6dacef51578f92b34c60ee91e9ede9c7f8fadc4d347326d95e2b@146.190.13.128:30303" "enode://a3435a0155a3e837c02f5e7f5662a2f1fbc25b48e4dc232016e1c51b544cb5b4510ef633ea3278c0e970fa8ad8141e2d4d0f9f95456c537ff05fdf9b31c15072@178.128.136.233:30303" ];
+        bootnodes = [ "enode://0a9a93c1b7879af75e4794327e6d7a54359fc6ab3c7876b41694fcab2c08552da0ead23b5668621c94402fdd4725e844c21896810584baeb34831c48fe78628b@162.19.103.136:20010" ];
         extraArgs = [
           "--verbosity=3"
           "--log.json=true"
