@@ -21,8 +21,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://github.com/status-im/nimbus-eth2.git";
-    rev = "v${version}";
-    sha256 = "sha256-INALxgkuZ4kT/DrpzMBqgNeM8Ar78BRccmGWtqoGhB0=";
+    rev = "20967432a6a8850f3ff0a32de705d9fe7d370cc9";
+    sha256 = "sha256-/NkSZy9baghBGK1b1A4bgFpOot+e45mIHxmOgefHEyg=";
     fetchSubmodules = true;
   };
 
