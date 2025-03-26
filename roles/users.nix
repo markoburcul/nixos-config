@@ -4,10 +4,6 @@
   # Give extra permissions with Nix
   nix.settings.trusted-users = [ "markob" ];
 
-  age.secrets."users/markob/pass-hash" = {
-    file = ../secrets/users/markob/pass-hash.age;
-  };
-
   users.groups.markob = {
     gid = 1000;
     name = "markob";
@@ -21,7 +17,6 @@
     isNormalUser = true;
     useDefaultShell = true;
     group = "markob";
-    hashedPasswordFile = config.age.secrets."users/markob/pass-hash".path;
     extraGroups = [
       "wheel" "audio" "disk" "adm" "tty"
       "systemd-journal" "docker" "networkmanager"

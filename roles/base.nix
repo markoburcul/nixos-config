@@ -29,6 +29,8 @@
     nfs-utils
     # security
     pass gopass openssl age age-plugin-yubikey
+    # nix package manager
+    nixVersions.nix_2_26
   ];
 
   boot.kernel.sysctl = {

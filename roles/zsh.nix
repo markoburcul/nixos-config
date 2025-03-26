@@ -12,12 +12,18 @@
         theme = "fletcherm";
         plugins = [
 	        "git"
+          "direnv"
           "colorize"
           "dirhistory"
           "dirpersist"
           "zsh-interactive-cd"
         ];
     };
+    interactiveShellInit = ''
+      if [ -f /etc/zprofile.local ]; then
+        . /etc/zprofile.local
+      fi
+    '';
   };
 
   # Enable fzf

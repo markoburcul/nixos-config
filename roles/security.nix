@@ -15,7 +15,8 @@
     enable = true;
     enableSSHSupport = true;
     enableBrowserSocket = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    enableExtraSocket = true;
+    pinentryPackage = pkgs.pinentry-curses;
   };
 
   # This allows using SSH keys exclusively, instead of passwords, for instance on remote machines.

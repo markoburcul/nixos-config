@@ -17,10 +17,13 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias gc='git commit -s -S'
+alias gp='git push'
+alias gpl='git pull'
+alias gpf='git push --force'
 
 # zfs mount -a -l fails without sudo with confusing error
 alias zfs='sudo zfs'
-
 
 # Completion
 autoload -U compinit              # enable auto completion
