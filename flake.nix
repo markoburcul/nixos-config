@@ -1,9 +1,14 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.11";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.url = "github:ryantm/agenix";
+    nixpkgs.url = "github:NixOS/nixpkgs/bf6fc3eac7ad1cd7992ba1985882f68932a27b52";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -18,8 +23,19 @@
       allowUnfreeModule = ({ config, pkgs, ... }: {
         nixpkgs.config.allowUnfree = true;
       });
+      stableSystems = [
+        "x86_64-linux" "aarch64-linux"
+        "x86_64-darwin" "aarch64-darwin"
+        "x86_64-windows"
+      ];
+      forAllSystems = f: nixpkgs.lib.genAttrs stableSystems (system: f system);
+      pkgsFor = forAllSystems ( system: import nixpkgs { inherit system; } );
     in 
     {
+      devShells = forAllSystems (system: {
+        default = pkgsFor.${system}.callPackage ./shells/default.nix { };
+      });
+
       nixosConfigurations = {
         doma = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
