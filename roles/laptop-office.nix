@@ -39,7 +39,7 @@
       vscode xsel bitwarden-cli easyrsa
 
       # DevOps
-      ansible terraform docker docker-compose
+      ansible terraform remmina age-plugin-yubikey
       awscli2 cachix direnv tailscale 
 
       # Python and its packages

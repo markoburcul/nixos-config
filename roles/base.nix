@@ -16,7 +16,7 @@
     neovim jq tmux fzf silver-searcher
     git qrencode sqlite
     # devops
-    docker 
+    docker docker-compose
     # hardware tools
     pciutils lm_sensors acpi pmutils usbutils dmidecode
     # networking
@@ -28,7 +28,7 @@
     # network filesystems
     nfs-utils
     # security
-    pass gopass openssl age age-plugin-yubikey
+    pass gopass openssl age
     # nix package manager
     nixVersions.nix_2_26
   ];

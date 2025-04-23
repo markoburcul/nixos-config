@@ -59,7 +59,7 @@ args@{
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/Barcelona";
+  time.timeZone = "Europe/Amsterdam";
 
   # Configure console keymap
   console.keyMap = "croat";
